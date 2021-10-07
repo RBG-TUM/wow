@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  ingest:
+    container_name: wow
+    environment: 
+      - DEBIAN_FRONTEND=noninteractive
+    build: .
+    ports:
+      - 1935:1935
+      - 8080:8080
+    volumes:
+      - type: volume
+        source: vod
+        target: /var/vod
+      - type: volume
+        source: hls
+        target: /var/hls
+    restart: always
+
+volumes:
+  vod:
+  hls:
