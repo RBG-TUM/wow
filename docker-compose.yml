@@ -1,14 +1,29 @@
 version: "3.8"
 
 services:
-  ingest:
-    container_name: wow
-    environment: 
-      - DEBIAN_FRONTEND=noninteractive
+  admin:
+    container_name: wow_admin
     build: .
     ports:
-      - 1935:1935
-      - 8080:8080
+      - "8081:8081"
+    volumes:
+      - type: volume
+        source: db
+        target: /db
+    networks:
+      mainNet:
+    restart: always
+
+  ingest:
+    container_name: wow
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    build: nginx
+    ports:
+      - "1935:1935"
+      - "8080:8080"
+    networks:
+      mainNet:
     volumes:
       - type: volume
         source: vod
@@ -18,6 +33,11 @@ services:
         target: /var/hls
     restart: always
 
+networks:
+  mainNet:
+    driver: bridge
+
 volumes:
   vod:
   hls:
+  db:

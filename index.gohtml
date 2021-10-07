@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <title>Wow!</title>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Key</td>
+        </tr>
+        </thead>
+        <tr>
+            {{range $streamer := .Streamers}}
+            <td>{{$streamer.Name}}</td>
+            <td>{{$streamer.Key}}</td>
+        </tr>
+        {{end}}
+    </table>
+    <form action="/streamers" method="post">
+        <label><span>Streamer Name</span><input name="name" type="text" placeholder="TUM RBG"></label>
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

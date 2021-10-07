@@ -16,17 +16,21 @@ docker-compose build
 docker-compose up -d
 ```
 That's it. Your server is running. You can now
-- Step 2: ingest a stream:
+- Step 2: Create a user:
+
+at http://localhost:8081 you can create a streamer. Once you did this, copy their `key`
+
+- Step 3: ingest a stream:
 
 This will create an adaptive stream (be carefull about your cpu though, this can get nasty):
 ```bash
 # be a little more creative, especially if you are unsure about your input (you should go for flv or h.264 with some reasonable encoding settings)
-ffmpeg -re -i my_video.mp4 -f -flv rtmp://localhost/live1/streamName
+ffmpeg -re -i my_video.mp4 -f -flv rtmp://localhost/live1/streamName?key=1234xxx
 ```
 
 This stream is not recoded, saving you tons of cpu capacity and making your viewers sad:
 ```bash
-ffmpeg -re -i my_video -f -flv rtmp://localhost/live2/streamName 
+ffmpeg -re -i my_video -f -flv rtmp://localhost/live2/streamName?key=1234xxx
 ```
 - Play your stream:
 
